@@ -1,0 +1,8 @@
+A:\dev\StreamRange\release\ScreenFrame.exe
+A:\dev\StreamRange\release\ScreenFrame.dll
+A:\dev\StreamRange\release\ScreenFrame.deps.json
+A:\dev\StreamRange\release\ScreenFrame.runtimeconfig.json
+A:\dev\StreamRange\release\ScreenFrame.pdb
+A:\dev\StreamRange\release\Hardcodet.NotifyIcon.Wpf.dll
+A:\dev\StreamRange\release\System.Text.Encodings.Web.dll
+A:\dev\StreamRange\release\System.Text.Json.dll
