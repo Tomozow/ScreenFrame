@@ -37,6 +37,9 @@ namespace ScreenFrame
             public int Y;
         }
 
+        private const double MinimumWindowSize = 50.0;
+        private const double DefaultBorderThickness = 3.0;
+
         private bool _isClickThrough = true;
         private TrayIcon _trayIcon;
         private AppSettings _settings = new AppSettings();
@@ -401,6 +404,8 @@ namespace ScreenFrame
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            EnsureWindowVisible();
+
             // ウィンドウをクリックスルーにする
             MakeClickThrough();
         }
@@ -468,14 +473,74 @@ namespace ScreenFrame
         
         private void ApplySettings()
         {
-            Left = _settings.Left;
-            Top = _settings.Top;
-            Width = _settings.Width;
-            Height = _settings.Height;
+            var defaults = new AppSettings();
+
+            Left = CoerceCoordinate(_settings.Left, defaults.Left);
+            Top = CoerceCoordinate(_settings.Top, defaults.Top);
+            Width = Math.Max(MinimumWindowSize, CoerceDimension(_settings.Width, defaults.Width));
+            Height = Math.Max(MinimumWindowSize, CoerceDimension(_settings.Height, defaults.Height));
+
             MainBorder.BorderBrush = new SolidColorBrush(_settings.BorderColorValue);
-            MainBorder.BorderThickness = new Thickness(_settings.BorderThickness);
+            var thickness = CoerceDimension(_settings.BorderThickness, DefaultBorderThickness);
+            MainBorder.BorderThickness = new Thickness(Math.Max(1.0, thickness));
+
+            EnsureWindowVisible();
         }
         
+        private static double CoerceCoordinate(double value, double fallback)
+        {
+            return double.IsNaN(value) || double.IsInfinity(value) ? fallback : value;
+        }
+
+        private static double CoerceDimension(double value, double fallback)
+        {
+            return double.IsNaN(value) || double.IsInfinity(value) || value <= 0 ? fallback : value;
+        }
+
+        private void EnsureWindowVisible()
+        {
+            Width = Math.Max(MinimumWindowSize, Width);
+            Height = Math.Max(MinimumWindowSize, Height);
+
+            var virtualLeft = SystemParameters.VirtualScreenLeft;
+            var virtualTop = SystemParameters.VirtualScreenTop;
+            var virtualRight = virtualLeft + SystemParameters.VirtualScreenWidth;
+            var virtualBottom = virtualTop + SystemParameters.VirtualScreenHeight;
+
+            var windowRight = Left + Width;
+            var windowBottom = Top + Height;
+
+            var invalidPosition =
+                double.IsNaN(Left) || double.IsNaN(Top) ||
+                double.IsInfinity(Left) || double.IsInfinity(Top) ||
+                windowRight <= virtualLeft || Left >= virtualRight ||
+                windowBottom <= virtualTop || Top >= virtualBottom;
+
+            if (invalidPosition)
+            {
+                var workArea = SystemParameters.WorkArea;
+
+                Width = Math.Min(Width, Math.Max(MinimumWindowSize, workArea.Width));
+                Height = Math.Min(Height, Math.Max(MinimumWindowSize, workArea.Height));
+
+                var targetLeft = workArea.Left + (workArea.Width - Width) / 2;
+                var targetTop = workArea.Top + (workArea.Height - Height) / 2;
+
+                Left = Clamp(targetLeft, workArea.Left, workArea.Right - Width);
+                Top = Clamp(targetTop, workArea.Top, workArea.Bottom - Height);
+            }
+        }
+
+        private static double Clamp(double value, double min, double max)
+        {
+            if (min > max)
+            {
+                return min;
+            }
+
+            return Math.Max(min, Math.Min(max, value));
+        }
+
         private void SaveSettings()
         {
             if (_settings != null)

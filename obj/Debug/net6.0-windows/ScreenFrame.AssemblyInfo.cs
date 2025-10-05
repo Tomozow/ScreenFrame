@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ScreenFrame")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bd7d2fcb82e339487f56ee2c9f3828c514571d7f")]
 [assembly: System.Reflection.AssemblyProductAttribute("ScreenFrame")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ScreenFrame")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
