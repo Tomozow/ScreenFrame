@@ -4,12 +4,12 @@
 winexe
 C#
 .cs
-A:\dev\StreamRange\obj\Release\net6.0-windows\
+A:\dev\ScreenFrame\obj\Release\net6.0-windows\
 ScreenFrame
 none
 false
 TRACE;RELEASE;NET;NET6_0;NETCOREAPP
-A:\dev\StreamRange\App.xaml
+A:\dev\ScreenFrame\App.xaml
 11407045341
 
 4784749369

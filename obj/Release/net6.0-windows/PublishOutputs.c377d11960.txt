@@ -1,0 +1,9 @@
+A:\dev\ScreenFrame\release\ScreenFrame.exe
+A:\dev\ScreenFrame\release\ScreenFrame.dll
+A:\dev\ScreenFrame\release\ScreenFrame.deps.json
+A:\dev\ScreenFrame\release\ScreenFrame.runtimeconfig.json
+A:\dev\ScreenFrame\release\ScreenFrame.pdb
+A:\dev\ScreenFrame\release\Hardcodet.NotifyIcon.Wpf.dll
+A:\dev\ScreenFrame\release\System.Text.Encodings.Web.dll
+A:\dev\ScreenFrame\release\System.Text.Json.dll
+A:\dev\ScreenFrame\release\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
